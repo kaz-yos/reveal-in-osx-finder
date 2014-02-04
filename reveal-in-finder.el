@@ -35,7 +35,7 @@
 ;;; Installation
 ;;
 ;; If you have auto-install.el
-;; (auto-install-from-url https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el)
+;; (auto-install-from-url "https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el")
 ;; 
 ;; Then, put the following in your emacs configuration file.
 ;; (require 'reveal-in-finder)
