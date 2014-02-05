@@ -72,6 +72,8 @@
 
 ;; Function to obtain the path to the file and/or the folder.
 (defun reveal-in-finder ()
+"Reveal the file associated with the current buffer in the OS X Finder.
+In a dired buffer, it will open the current directory."
   (interactive)
   (let ((path (buffer-file-name))
 	dir file)
@@ -89,6 +91,7 @@
 
 ;; Function to open it in Finder.
 (defun reveal-in-finder-1 (dir file)
+"A helper function for reveal-in-finder"
   (let ((script
 	 (if file
 	     ;; If it is a file, open the enclosing folder, and select the file.
