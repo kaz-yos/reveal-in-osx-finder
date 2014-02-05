@@ -1,4 +1,4 @@
-;;; reveal-in-finder.el --- Open the file enclosing folder in OS X Finder on Macs.
+;;; reveal-in-finder.el --- Reveal the file associated with the current buffer in the OS X Finder on Macs.
 
 ;; Copyright (C) 2014  Kazuki YOSHIDA 
 
