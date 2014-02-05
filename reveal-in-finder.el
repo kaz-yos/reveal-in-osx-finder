@@ -32,7 +32,9 @@
 ;; it will open the folder defined in the default-directory variable.
 ;; In a dired buffer, this should open the current folder in the OS X Finder.
 ;;
+;;
 ;; Special thanks:
+;;
 ;; This is a modified version of the open-finder found at the URL below.
 ;; Thank you elemakil and lawlist for introducing this nice piece of code,
 ;; http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
