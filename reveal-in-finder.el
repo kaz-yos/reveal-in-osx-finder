@@ -1,10 +1,10 @@
-;;; reveal-in-finder.el --- Reveal the file associated with the current buffer in the OS X Finder on Macs.
+;;; reveal-in-finder.el --- Reveal the file associated with the buffer in the OS X Finder.
 
 ;; Copyright (C) 2014  Kazuki YOSHIDA
 
 ;; Author: Kazuki YOSHIDA (based on "open-finder" found in Stack Overflow.)
 ;; Keywords: OS X, Finder
-;; URL: https://github.com/kaz-yos/elisp/blob/master/reveal-in-finder.el
+;; URL: https://github.com/kaz-yos/elisp
 ;; Version: 0.2.0
 
 ;; This program is free software; you can redistribute it and/or modify
