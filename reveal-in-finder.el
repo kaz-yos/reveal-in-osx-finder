@@ -1,4 +1,4 @@
-;;; reveal-in-finder.el --- Reveal the file associated with the current buffer in the OS X Finder on Macs.
+;;; reveal-in-finder.el --- Reveal the file associated with the current buffer in the OS X Finder
 
 ;; Copyright (C) 2014  Kazuki YOSHIDA 
 
@@ -46,21 +46,7 @@
 ;; None. It only works on the Mac platform with AppleScript support.
 
 
-;;; Installation
-;;
-;; M-x list-packages, then choose and install reveal-in-finder when it is available on MELPA.
-;;
-;; If you have auto-install.el, you can do the following to install.
-;; (auto-install-from-url "https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el")
-;;
-;; Otherwise you can download the file from the URL below and place it somewhere in your path.
-;; https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el
-;; 
-;; Then, put the following in your emacs configuration file.
-;; (require 'reveal-in-finder)
-
-
-;;; Use
+;;; Usage
 ;;
 ;; From a file-associated buffer, just M-x reveal-in-finder RET.
 ;; It will take you to the enclosing folder in the OS X Finder, highlighting the file.
@@ -71,10 +57,8 @@
 
 ;;; Code:
 
-;;;###autoload
-;; autoload macro
-
 ;; Function to obtain the path to the file and/or the folder.
+;;;###autoload
 (defun reveal-in-finder ()
 "Reveal the file associated with the current buffer in the OS X Finder.
 In a dired buffer, it will open the current directory."
