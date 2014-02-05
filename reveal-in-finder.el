@@ -23,6 +23,7 @@
 
 ;;; Commentary:
 ;; Special thanks:
+;;
 ;; This is a modified version of the "open-finder" found at the URL below.
 ;; http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
 ;; Thank you elemakil and lawlist for introducing this nice piece of code,
@@ -30,6 +31,7 @@
 ;; http://stackoverflow.com/questions/11222501/finding-a-file-selecting-it-in-finder-issue
 ;; 
 ;; What this does:
+;;
 ;; If M-x reveal-in-finder is invoked in a file-associated buffer,
 ;; it will open the folder enclosing the file in the OS X Finder.
 ;; It will also select the file the buffer is associated with within the folder.
@@ -45,6 +47,8 @@
 
 
 ;;; Installation
+;;
+;; M-x list-packages, then choose and install reveal-in-finder when it is available on MELPA.
 ;;
 ;; If you have auto-install.el, you can do the following to install.
 ;; (auto-install-from-url "https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el")
