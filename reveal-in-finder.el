@@ -1,11 +1,11 @@
 ;;; reveal-in-finder.el --- Reveal the file associated with the current buffer in the OS X Finder on Macs.
 
-;; Copyright (C) 2014  Kazuki YOSHIDA 
+;; Copyright (C) 2014  Kazuki YOSHIDA
 
 ;; Author: Kazuki YOSHIDA (based on "open-finder" found in Stack Overflow.)
 ;; Keywords: OS X, Finder
 ;; URL: https://github.com/kaz-yos/elisp/blob/master/reveal-in-finder.el
-;; Version: 0.1.0
+;; Version: 0.2.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;; 
+;;
 ;; Usage:
 ;;
 ;; If M-x reveal-in-finder is invoked in a file-associated buffer,
@@ -37,46 +37,40 @@
 
 ;;;###autoload
 (defun reveal-in-finder ()
-"Reveal the file associated with the current buffer in the OS X Finder.
+  "Reveal the file associated with the current buffer in the OS X Finder.
 In a dired buffer, it will open the current directory."
   (interactive)
-  (let ((path (buffer-file-name))
-	dir file)
+  (let* ((path (buffer-file-name))
+	dir file)				; let* definition ends here
     (if path
 	;; If path has been successfully obtained, set these variables.
 	(progn (setq dir (file-name-directory path))
 	       (setq file (file-name-nondirectory path)))
       ;; If path is empty, there is no file name. Use the default-directory variable.
       ;; This should work in a dired buffer.
-      (setq dir (expand-file-name default-directory))
-      )
-    ;; (message (concat "Opening in Finder: " dir file))	; Show the file name
-    (reveal-in-finder-1 dir file)      
+      (setq dir (expand-file-name default-directory)))
+    (reveal-in-finder-as dir file)
     ))
 
-;; Function to open it in Finder.
-(defun reveal-in-finder-1 (dir file)
-"A helper function for reveal-in-finder"
-  (let ((script
-	 (if file
-	     ;; If it is a file, open the enclosing folder, and select the file.
-	     (concat
-	      "set thePath to POSIX file \"" (concat dir file) "\"\n"
-	      "tell application \"Finder\"\n"
-	      " set frontmost to true\n"
-	      " reveal thePath \n"
-	      "end tell\n"
-	      )
-	   ;; If it is a folder, open the folder, and select the folder itself..
-	   (concat
-	    "set thePath to POSIX file \"" (concat dir) "\"\n"
-	    "tell application \"Finder\"\n"
-	    " set frontmost to true\n"
-	    " reveal thePath \n"
-	    "end tell\n"))))
-    ;; (message script)	; Show the script in the mini-buffer
+;; AppleScript helper function. Thanks milkeypostman for suggestions.
+;; Use let* to reuse revealpath in the definition of script.
+(defun reveal-in-finder-as (dir file)
+  "A helper function for reveal-in-finder.
+This function runs the actual AppleScript."
+  (let* ((revealpath (if file			; define revealpath local variable
+			 (concat dir file)	; dir/file if file name available
+		       dir))			; dir only if not
+	 (script				; define script variable using revealpath and text
+	  (concat
+	   "set thePath to POSIX file \"" revealpath "\"\n"
+	   "tell application \"Finder\"\n"
+	   " set frontmost to true\n"
+	   " reveal thePath \n"
+	   "end tell\n")))			; let* definitions end here
+    (message script)				; check the text output
     (start-process "osascript-getinfo" nil "osascript" "-e" script)
     ))
+
 
 (provide 'reveal-in-finder)
 ;;; reveal-in-finder.el ends here
