@@ -67,10 +67,25 @@ This function runs the actual AppleScript."
 	   " set frontmost to true\n"
 	   " reveal thePath \n"
 	   "end tell\n")))		   ; let* definitions end here.
-    (message script)			   ; check the text output.
-    (start-process "osascript-getinfo" nil "osascript" "-e" script)
+    ;; (message script)			   ; check the text output.
+    (start-process "osascript-getinfo" nil "osascript" "-e" script) ; Run AppleScript
     ))
 
 (provide 'reveal-in-finder)
 ;;; reveal-in-finder.el ends here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
