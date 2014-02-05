@@ -1,8 +1,9 @@
-reveal-in-finder
+Miscellaneous emacs lisp files
 =====
 
-Special thanks:
+reveal-in-finder
 -----
+**Special thanks:**
 This is a modified version of the "open-finder" found at the URL below.
 http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
 Thank you elemakil and lawlist for introducing this nice piece of code,
