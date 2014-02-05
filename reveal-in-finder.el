@@ -20,61 +20,22 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 ;;; Commentary:
-;; Special thanks:
-;;
-;; This is a modified version of the "open-finder" found at the URL below.
-;; http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
-;; Thank you elemakil and lawlist for introducing this nice piece of code,
-;; and Peter Salazar for pointing out a useful link about AppleScript (below).
-;; http://stackoverflow.com/questions/11222501/finding-a-file-selecting-it-in-finder-issue
 ;; 
-;; What this does:
+;; Usage:
 ;;
 ;; If M-x reveal-in-finder is invoked in a file-associated buffer,
 ;; it will open the folder enclosing the file in the OS X Finder.
-;; It will also select the file the buffer is associated with within the folder.
+;; It will also highlight the file the buffer is associated with within the folder.
 ;;
 ;; If M-x reveal-in-finder is invoked in a buffer not associated with a file,
 ;; it will open the folder defined in the default-directory variable.
 ;; In a dired buffer, this should open the current folder in the OS X Finder.
 
 
-;;; Dependencies
-;;
-;; None. It only works on the Mac platform with AppleScript support.
-
-
-;;; Installation
-;;
-;; M-x list-packages, then choose and install reveal-in-finder when it is available on MELPA.
-;;
-;; If you have auto-install.el, you can do the following to install.
-;; (auto-install-from-url "https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el")
-;;
-;; Otherwise you can download the file from the URL below and place it somewhere in your path.
-;; https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el
-;; 
-;; Then, put the following in your emacs configuration file.
-;; (require 'reveal-in-finder)
-
-
-;;; Use
-;;
-;; From a file-associated buffer, just M-x reveal-in-finder RET.
-;; It will take you to the enclosing folder in the OS X Finder, highlighting the file.
-;; 
-;; From a dired buffer, also just M-x reveal-in-finder RET.
-;; It will take you to the folder, highlighting the folder itself.
-
-
 ;;; Code:
 
 ;;;###autoload
-;; autoload macro
-
-;; Function to obtain the path to the file and/or the folder.
 (defun reveal-in-finder ()
 "Reveal the file associated with the current buffer in the OS X Finder.
 In a dired buffer, it will open the current directory."
