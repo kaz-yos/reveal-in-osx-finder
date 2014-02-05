@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2014  Kazuki YOSHIDA 
 
-;; Author: Kazuki YOSHIDA (based on the original found in Stack Overflow.)
+;; Author: Kazuki YOSHIDA (based on "open-finder" found in Stack Overflow.)
 ;; Keywords: OS X, Finder
 ;; URL: https://github.com/kaz-yos/elisp/blob/master/reveal-in-finder.el
 ;; Version: 0.1.0
@@ -23,8 +23,8 @@
 
 ;;; Commentary:
 ;; Special thanks:
-;; This is a modified version of the original found at the URL below.
-;; Original: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
+;; This is a modified version of the "open-finder" found at the URL below.
+;; http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
 ;; Thank you elemakil and lawlist for introducing this nice piece of code,
 ;; and Peter Salazar for pointing out a useful link about AppleScript (below).
 ;; http://stackoverflow.com/questions/11222501/finding-a-file-selecting-it-in-finder-issue
@@ -76,10 +76,11 @@
   (let ((path (buffer-file-name))
 	dir file)
     (if path
-	;; if path has been successfully obtained.
+	;; If path has been successfully obtained, set these variables.
 	(progn (setq dir (file-name-directory path))
 	       (setq file (file-name-nondirectory path)))
-      ;; if path is empty, there is no file name. Use the default-directory variable
+      ;; If path is empty, there is no file name. Use the default-directory variable.
+      ;; This should work in a dired buffer.
       (setq dir (expand-file-name default-directory))
       )
     ;; (message (concat "Opening in Finder: " dir file))	; Show the file name
@@ -90,7 +91,7 @@
 (defun reveal-in-finder-1 (dir file)
   (let ((script
 	 (if file
-	     ;; if it is a file.
+	     ;; If it is a file, open the enclosing folder, and select the file.
 	     (concat
 	      "set thePath to POSIX file \"" (concat dir file) "\"\n"
 	      "tell application \"Finder\"\n"
@@ -98,7 +99,7 @@
 	      " reveal thePath \n"
 	      "end tell\n"
 	      )
-	   ;; if it is a folder.
+	   ;; If it is a folder, open the folder, and select the folder itself..
 	   (concat
 	    "set thePath to POSIX file \"" (concat dir) "\"\n"
 	    "tell application \"Finder\"\n"
