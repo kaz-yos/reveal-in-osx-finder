@@ -1,8 +1,8 @@
 ;;; reveal-in-finder.el --- Open the file enclosing folder in OS X Finder on Macs.
 
-;; Copyright (C) 2014  Kazuki YOSHIDA
+;; Copyright (C) 2014  Kazuki YOSHIDA 
 
-;; Author: Kazuki YOSHIDA
+;; Author: Kazuki YOSHIDA (based on the original found in Stack Overflow.)
 ;; Keywords: OS X, Finder
 ;; URL: https://github.com/kaz-yos/elisp/blob/master/reveal-in-finder.el
 ;; Version: 0.1.0
@@ -22,35 +22,53 @@
 
 
 ;;; Commentary:
-;; This is a modified version of the original found below.
+;; Special thanks:
+;; This is a modified version of the original found at the URL below.
 ;; Original: http://stackoverflow.com/questions/20510333/in-emacs-how-to-show-current-file-in-finder
+;; Thank you elemakil and lawlist for introducing this nice piece of code,
+;; and Peter Salazar for pointing out a useful link about AppleScript (below).
+;; http://stackoverflow.com/questions/11222501/finding-a-file-selecting-it-in-finder-issue
 ;; 
-;; It opens the enclosing folder and highlight the file in OS X Finder if invoked from a file buffer.
-;; It highlights the folder if invoked from a buffer which does not have an associated file (dired, etc).
+;; What this does:
+;; If M-x reveal-in-finder is invoked in a file-associated buffer,
+;; it will open the folder enclosing the file in the OS X Finder.
+;; It will also select the file the buffer is associated with within the folder.
+;;
+;; If M-x reveal-in-finder is invoked in a buffer not associated with a file,
+;; it will open the folder defined in the default-directory variable.
+;; In a dired buffer, this should open the current folder in the OS X Finder.
+
 
 ;;; Dependencies
 ;;
-;; None. It only works on the Mac platform.
+;; None. It only works on the Mac platform with AppleScript support.
+
 
 ;;; Installation
 ;;
-;; If you have auto-install.el
+;; If you have auto-install.el, you can do the following to install.
 ;; (auto-install-from-url "https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el")
+;;
+;; Otherwise you can download the file from the URL below and place it somewhere in your path.
+;; https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el
 ;; 
 ;; Then, put the following in your emacs configuration file.
 ;; (require 'reveal-in-finder)
 
+
 ;;; Use
 ;;
 ;; From a file-associated buffer, just M-x reveal-in-finder RET.
-;; It will take you to the enclosing folder in Finder, highlighting the file.
+;; It will take you to the enclosing folder in the OS X Finder, highlighting the file.
 ;; 
 ;; From a dired buffer, also just M-x reveal-in-finder RET.
 ;; It will take you to the folder, highlighting the folder itself.
 
 
-
 ;;; Code:
+
+;;;###autoload
+;; autoload macro
 
 ;; Function to obtain the path to the file and/or the folder.
 (defun reveal-in-finder ()
