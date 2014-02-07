@@ -15,7 +15,9 @@ reveal-in-finder
 
 There is no dependencies, except that it only works on the OS X environment on Macs.
 
-When it becomes available on MELPA, do the following, then choose and install reveal-in-finder.
+It is available on the MELPA repository. Do the following, then choose and install reveal-in-finder.
+
+To configure the MELPA, see this: http://melpa.milkbox.net/#/getting-started
 
 ```
 M-x list-packages
