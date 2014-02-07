@@ -32,7 +32,10 @@ https://raw.github.com/kaz-yos/elisp/master/reveal-in-finder.el
 Then, put the following in your emacs configuration file.
 
 ```lisp
+;; To load at the start up
 (require 'reveal-in-finder)
+;; If you want to configure a keybinding (e.g., C-c z), add the following
+(global-set-key (kbd "C-c z") 'reveal-in-finder)
 ```
 
 **Special thanks:**
