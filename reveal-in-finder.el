@@ -54,13 +54,23 @@ In a dired buffer, it will open the current directory."
 	 dir file)		   ; let* definition part ends here.
     (if path
 	;; If path has been successfully obtained, set these variables.
-	(progn (setq dir  (file-name-directory path))
+	(progn (setq dir  (file-name-directory	  path))
 	       (setq file (file-name-nondirectory path)))
-      ;; If path is empty, there is no file name. Use the default-directory variable.
-      ;; This should work in a dired buffer.
-      (setq dir (expand-file-name default-directory)))	
+
+      ;; If in dired, use the file at point
+      (if (string= major-mode "dired-mode")
+	  (progn (setq dir  (file-name-directory    (dired-filename-at-point)))
+		 (setq file (file-name-nondirectory (dired-filename-at-point))))
+
+	;; If path is empty and not in dired, use the default-directory variable.
+	(setq dir (expand-file-name default-directory))
+	) ; The inner if ends here.
+      )	; The outer if ends here.
+
+    ;; Pass dir and file to the helper function.
     (reveal-in-finder-as dir file) ; Global variables are required to pass them to the helper.
     ))
+
 
 ;; AppleScript helper function. Thanks milkeypostman for suggestions.
 ;; Use let* to reuse revealpath in defining script.
@@ -80,6 +90,7 @@ This function runs the actual AppleScript."
     ;; (message script)			   ; Check the text output.
     (start-process "osascript-getinfo" nil "osascript" "-e" script) ; Run AppleScript.
     ))
+
 
 (provide 'reveal-in-finder)
 ;;; reveal-in-finder.el ends here
