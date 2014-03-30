@@ -45,6 +45,10 @@
 
 ;;; Code:
 
+;; This version requires dired-x.el
+(require 'dired-x)
+
+
 ;;;###autoload
 (defun reveal-in-finder ()
   "Reveal the file associated with the current buffer in the OS X Finder.
