@@ -51,6 +51,7 @@
 ;; This version requires dired-x.el
 ;; (require 'dired-x)
 ;; Require for (dired-filename-at-point)
+(require 'dired)
 
 
 ;;;###autoload
@@ -58,25 +59,33 @@
   "Reveal the file associated with the current buffer in the OS X Finder.
 In a dired buffer, it will open the current directory."
   (interactive)
-  (let* ((path (buffer-file-name))
+  (let* ((path (buffer-file-name)) ; The full file path associated with the buffer.
+	 (filename-at-point (dired-file-name-at-point)) ; effective in dired only
+	 ;; Create a full path if filename-at-point is non-nil
+	 (filename-at-point (if filename-at-point
+				(expand-file-name filename-at-point) ; full path
+			      nil)) ; if nil, return nil
 	 dir file)		   ; let* definition part ends here.
+
+    ;; Check if path is non-nil, and act conditionally.
     (if path
 	;; If path has been successfully obtained, set these variables.
 	(progn (setq dir  (file-name-directory	  path))
 	       (setq file (file-name-nondirectory path)))
 
-      ;; If in dired, use the file at point
-      (if (string= major-mode "dired-mode")
-	  (progn (let* ((filename-at-point (dired-file-name-at-point)))
-		   (setq dir  (file-name-directory    filename-at-point))
-		   (setq file (file-name-nondirectory filename-at-point))))
-
-	;; If path is empty and not in dired, use the default-directory variable.
+      ;; If path is nil, do the following if clause.
+      (if filename-at-point
+	  ;; If filename-at-point is available from dired, do the following.
+	  (progn (setq dir  (file-name-directory    filename-at-point))
+		 (setq file (file-name-nondirectory filename-at-point)))
+	;; If filename-at-point is not set, use the default-directory variable.
 	(setq dir (expand-file-name default-directory))
 	) ; The inner if ends here.
+
       )	; The outer if ends here.
 
     ;; Pass dir and file to the helper function.
+    (message (concat "dir:" dir "; file:" file " ; fap:" filename-at-point)) ; for debugging
     (reveal-in-finder-as dir file) ; Global variables are required to pass them to the helper.
     ))
 
