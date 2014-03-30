@@ -63,8 +63,9 @@ In a dired buffer, it will open the current directory."
 
       ;; If in dired, use the file at point
       (if (string= major-mode "dired-mode")
-	  (progn (setq dir  (file-name-directory    (dired-filename-at-point)))
-		 (setq file (file-name-nondirectory (dired-filename-at-point))))
+	  (progn (let* ((filename-at-point (dired-filename-at-point)))
+		   (setq dir  (file-name-directory    filename-at-point))
+		   (setq file (file-name-nondirectory filename-at-point))))
 
 	;; If path is empty and not in dired, use the default-directory variable.
 	(setq dir (expand-file-name default-directory))
