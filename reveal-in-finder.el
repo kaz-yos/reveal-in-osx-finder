@@ -49,7 +49,8 @@
 ;;; Code:
 
 ;; This version requires dired-x.el
-(require 'dired-x)
+;; (require 'dired-x)
+;; Require for (dired-filename-at-point)
 
 
 ;;;###autoload
@@ -66,7 +67,7 @@ In a dired buffer, it will open the current directory."
 
       ;; If in dired, use the file at point
       (if (string= major-mode "dired-mode")
-	  (progn (let* ((filename-at-point (dired-filename-at-point)))
+	  (progn (let* ((filename-at-point (dired-file-name-at-point)))
 		   (setq dir  (file-name-directory    filename-at-point))
 		   (setq file (file-name-nondirectory filename-at-point))))
 
