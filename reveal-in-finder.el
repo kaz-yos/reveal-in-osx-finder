@@ -51,10 +51,10 @@
 In a dired buffer, it will open the current directory."
   (interactive)
   (let* ((path (buffer-file-name))
-	dir file)		   ; let* definition ends here.
+	 dir file)		   ; let* definition part ends here.
     (if path
 	;; If path has been successfully obtained, set these variables.
-	(progn (setq dir (file-name-directory path))
+	(progn (setq dir  (file-name-directory path))
 	       (setq file (file-name-nondirectory path)))
       ;; If path is empty, there is no file name. Use the default-directory variable.
       ;; This should work in a dired buffer.
@@ -76,7 +76,7 @@ This function runs the actual AppleScript."
 	   "tell application \"Finder\"\n"
 	   " set frontmost to true\n"
 	   " reveal thePath \n"
-	   "end tell\n")))		   ; let* definitions end here.
+	   "end tell\n")))		   ; let* definition part ends here.
     ;; (message script)			   ; Check the text output.
     (start-process "osascript-getinfo" nil "osascript" "-e" script) ; Run AppleScript.
     ))
