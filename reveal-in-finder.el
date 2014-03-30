@@ -5,7 +5,7 @@
 ;; Author: Kazuki YOSHIDA
 ;; Keywords: OS X, Finder
 ;; URL: https://github.com/kaz-yos/elisp
-;; Version: 0.3.0
+;; Version: 0.3.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -65,22 +65,20 @@ In a dired buffer, it will open the current directory."
 			      nil)) ; if nil, return nil
 	 dir file)		   ; let* definition part ends here.
 
-    ;; Check if path is non-nil, and act conditionally.
-    (if path
-	;; If path has been successfully obtained, set these variables.
-	(progn (setq dir  (file-name-directory	  path))
-	       (setq file (file-name-nondirectory path)))
+    ;; Conditionals: The first one that is non-nil is executed.
+    (cond (path
+	   ;; If path is non-nil,
+	   (setq dir  (file-name-directory    path))
+	   (setq file (file-name-nondirectory path)))
 
-      ;; If path is nil, do the following if clause.
-      (if filename-at-point
-	  ;; If filename-at-point is available from dired, do the following.
-	  (progn (setq dir  (file-name-directory    filename-at-point))
-		 (setq file (file-name-nondirectory filename-at-point)))
-	;; If filename-at-point is not set, use the default-directory variable.
-	(setq dir (expand-file-name default-directory))
-	) ; The inner if ends here.
+	  (filename-at-point
+	   ;; If filename-at-point is available from dired,
+	   (setq dir  (file-name-directory    filename-at-point))
+	   (setq file (file-name-nondirectory filename-at-point)))
 
-      )	; The outer if ends here.
+	  (t
+	   ;; Otherwise,
+	   (setq dir  (expand-file-name default-directory))))
 
     ;; Pass dir and file to the helper function.
     ;; (message (concat "dir:" dir " ; file:" file " ; path:" path " ; fap:" filename-at-point)) ; for debugging
