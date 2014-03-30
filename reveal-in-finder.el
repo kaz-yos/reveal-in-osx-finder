@@ -5,7 +5,7 @@
 ;; Author: Kazuki YOSHIDA
 ;; Keywords: OS X, Finder
 ;; URL: https://github.com/kaz-yos/elisp
-;; Version: 0.2.0
+;; Version: 0.3.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -28,9 +28,12 @@
 ;; it will open the folder enclosing the file in the OS X Finder.
 ;; It will also highlight the file the buffer is associated with within the folder.
 ;;
+;; If M-x reveal-in-finder is invoked in a dired buffer,
+;; it will open the current folder in the OS X Finder.
+;; It will also highlight the file at point if any.
+;;
 ;; If M-x reveal-in-finder is invoked in a buffer not associated with a file,
 ;; it will open the folder defined in the default-directory variable.
-;; In a dired buffer, this should open the current folder in the OS X Finder.
 ;;
 ;;
 ;; Special thanks:
