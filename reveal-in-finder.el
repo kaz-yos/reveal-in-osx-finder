@@ -30,7 +30,7 @@
 ;;
 ;; If M-x reveal-in-finder is invoked in a dired buffer,
 ;; it will open the current folder in the OS X Finder.
-;; It will also highlight the file at point if any.
+;; It will also highlight the file at point if available.
 ;;
 ;; If M-x reveal-in-finder is invoked in a buffer not associated with a file,
 ;; it will open the folder defined in the default-directory variable.
@@ -48,9 +48,7 @@
 
 ;;; Code:
 
-;; This version requires dired-x.el
-;; (require 'dired-x)
-;; Require for (dired-filename-at-point)
+;; Requires dired.el for (dired-file-name-at-point)
 (require 'dired)
 
 
