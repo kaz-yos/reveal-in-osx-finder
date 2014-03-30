@@ -6,14 +6,16 @@ reveal-in-finder
 
 **Usage:**
 
-- If ```M-x reveal-in-finder``` is invoked in a file-associated buffer, it will open the folder enclosing the file in the OS X Finder.  It will also select the file the buffer is associated with within the folder.
+- If ```M-x reveal-in-finder``` is invoked in a file-associated buffer, it will open the folder enclosing the file in the OS X Finder. It will also highlight the file the buffer is associated with within the folder.
 
-- If ```M-x reveal-in-finder``` is invoked in a buffer not associated with a file,it will open the folder defined in the default-directory variable. In a dired buffer, this should open the current folder in the OS X Finder.
+- *(NEW in 0.3.0)* If ```M-x reveal-in-finder``` is invoked in a dired buffer, it will open the current folder in the OS X Finder. It will also highlight the file at point if available.
+
+- If ```M-x reveal-in-finder``` is invoked in a buffer not associated with a file, it will open the folder defined in the default-directory variable.
 
 
 **Installation**
 
-There is no dependencies, except that it only works on the OS X environment on Macs.
+This package depends on ```dired.el```, which should be available in the default emacs installation. It only works on the OS X environment on Macs.
 
 It is available on the MELPA repository. Do the following, then choose and install reveal-in-finder.
 
