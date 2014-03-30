@@ -85,7 +85,7 @@ In a dired buffer, it will open the current directory."
       )	; The outer if ends here.
 
     ;; Pass dir and file to the helper function.
-    (message (concat "dir:" dir "; file:" file " ; fap:" filename-at-point)) ; for debugging
+    (message (concat "dir:" dir " ; file:" file " ; path:" path " ; fap:" filename-at-point)) ; for debugging
     (reveal-in-finder-as dir file) ; Global variables are required to pass them to the helper.
     ))
 
