@@ -5,7 +5,7 @@
 ;; Author: Kazuki YOSHIDA
 ;; Keywords: OS X, Finder
 ;; URL: https://github.com/kaz-yos/elisp
-;; Version: 0.2.0
+;; Version: 0.3.0
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -28,9 +28,12 @@
 ;; it will open the folder enclosing the file in the OS X Finder.
 ;; It will also highlight the file the buffer is associated with within the folder.
 ;;
+;; If M-x reveal-in-finder is invoked in a dired buffer,
+;; it will open the current folder in the OS X Finder.
+;; It will also highlight the file at point if any.
+;;
 ;; If M-x reveal-in-finder is invoked in a buffer not associated with a file,
 ;; it will open the folder defined in the default-directory variable.
-;; In a dired buffer, this should open the current folder in the OS X Finder.
 ;;
 ;;
 ;; Special thanks:
@@ -45,22 +48,47 @@
 
 ;;; Code:
 
+;; This version requires dired-x.el
+;; (require 'dired-x)
+;; Require for (dired-filename-at-point)
+(require 'dired)
+
+
 ;;;###autoload
 (defun reveal-in-finder ()
   "Reveal the file associated with the current buffer in the OS X Finder.
 In a dired buffer, it will open the current directory."
   (interactive)
-  (let* ((path (buffer-file-name))
-	dir file)		   ; let* definition ends here.
+  (let* ((path (buffer-file-name)) ; The full file path associated with the buffer.
+	 (filename-at-point (dired-file-name-at-point)) ; effective in dired only
+	 ;; Create a full path if filename-at-point is non-nil
+	 (filename-at-point (if filename-at-point
+				(expand-file-name filename-at-point) ; full path
+			      nil)) ; if nil, return nil
+	 dir file)		   ; let* definition part ends here.
+
+    ;; Check if path is non-nil, and act conditionally.
     (if path
 	;; If path has been successfully obtained, set these variables.
-	(progn (setq dir (file-name-directory path))
+	(progn (setq dir  (file-name-directory	  path))
 	       (setq file (file-name-nondirectory path)))
-      ;; If path is empty, there is no file name. Use the default-directory variable.
-      ;; This should work in a dired buffer.
-      (setq dir (expand-file-name default-directory)))	
+
+      ;; If path is nil, do the following if clause.
+      (if filename-at-point
+	  ;; If filename-at-point is available from dired, do the following.
+	  (progn (setq dir  (file-name-directory    filename-at-point))
+		 (setq file (file-name-nondirectory filename-at-point)))
+	;; If filename-at-point is not set, use the default-directory variable.
+	(setq dir (expand-file-name default-directory))
+	) ; The inner if ends here.
+
+      )	; The outer if ends here.
+
+    ;; Pass dir and file to the helper function.
+    ;; (message (concat "dir:" dir " ; file:" file " ; path:" path " ; fap:" filename-at-point)) ; for debugging
     (reveal-in-finder-as dir file) ; Global variables are required to pass them to the helper.
     ))
+
 
 ;; AppleScript helper function. Thanks milkeypostman for suggestions.
 ;; Use let* to reuse revealpath in defining script.
@@ -76,10 +104,11 @@ This function runs the actual AppleScript."
 	   "tell application \"Finder\"\n"
 	   " set frontmost to true\n"
 	   " reveal thePath \n"
-	   "end tell\n")))		   ; let* definitions end here.
+	   "end tell\n")))		   ; let* definition part ends here.
     ;; (message script)			   ; Check the text output.
     (start-process "osascript-getinfo" nil "osascript" "-e" script) ; Run AppleScript.
     ))
+
 
 (provide 'reveal-in-finder)
 ;;; reveal-in-finder.el ends here
