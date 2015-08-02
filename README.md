@@ -1,8 +1,5 @@
-Miscellaneous emacs lisp files
-=====
-
 reveal-in-osx-finder
------
+=====
 
 **Usage:**
 
