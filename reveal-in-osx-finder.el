@@ -1,11 +1,11 @@
-;;; reveal-in-finder.el --- Reveal file associated with buffer in OS X Finder
+;;; reveal-in-osx-finder.el --- Reveal file associated with buffer in OS X Finder
 
-;; Copyright (C) 2014  Kazuki YOSHIDA
+;; Copyright (C) 2014-  Kazuki YOSHIDA
 
 ;; Author: Kazuki YOSHIDA
 ;; Keywords: OS X, Finder
-;; URL: https://github.com/kaz-yos/elisp
-;; Version: 0.3.1
+;; URL: https://github.com/kaz-yos/reveal-in-osx-finder
+;; Version: 0.3.3
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,15 +24,15 @@
 ;;
 ;; Usage:
 ;;
-;; If M-x reveal-in-finder is invoked in a file-associated buffer,
+;; If M-x reveal-in-osx-finder is invoked in a file-associated buffer,
 ;; it will open the folder enclosing the file in the OS X Finder.
 ;; It will also highlight the file the buffer is associated with within the folder.
 ;;
-;; If M-x reveal-in-finder is invoked in a dired buffer,
+;; If M-x reveal-in-osx-finder is invoked in a dired buffer,
 ;; it will open the current folder in the OS X Finder.
 ;; It will also highlight the file at point if available.
 ;;
-;; If M-x reveal-in-finder is invoked in a buffer not associated with a file,
+;; If M-x reveal-in-osx-finder is invoked in a buffer not associated with a file,
 ;; it will open the folder defined in the default-directory variable.
 ;;
 ;;
@@ -53,7 +53,7 @@
 
 
 ;;;###autoload
-(defun reveal-in-finder ()
+(defun reveal-in-osx-finder ()
   "Reveal the file associated with the current buffer in the OS X Finder.
 In a dired buffer, it will open the current directory."
   (interactive)
@@ -82,14 +82,14 @@ In a dired buffer, it will open the current directory."
 
     ;; Pass dir and file to the helper function.
     ;; (message (concat "dir:" dir " ; file:" file " ; path:" path " ; fap:" filename-at-point)) ; for debugging
-    (reveal-in-finder-as dir file) ; Global variables are required to pass them to the helper.
+    (reveal-in-osx-finder-as dir file) ; These variables are  passed to the helper function.
     ))
 
 
 ;; AppleScript helper function. Thanks milkeypostman for suggestions.
 ;; Use let* to reuse revealpath in defining script.
-(defun reveal-in-finder-as (dir file)
-  "A helper function for reveal-in-finder.
+(defun reveal-in-osx-finder-as (dir file)
+  "A helper function for reveal-in-osx-finder.
 This function runs the actual AppleScript."
   (let* ((revealpath (if file		   ; Define revealpath local variable.
 			 (concat dir file) ; dir/file if file name available.
@@ -106,5 +106,5 @@ This function runs the actual AppleScript."
     ))
 
 
-(provide 'reveal-in-finder)
-;;; reveal-in-finder.el ends here
+(provide 'reveal-in-osx-finder)
+;;; reveal-in-osx-finder.el ends here
