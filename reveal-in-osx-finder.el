@@ -1,11 +1,11 @@
 ;;; reveal-in-osx-finder.el --- Reveal file associated with buffer in OS X Finder
 
-;; Copyright (C) 2014  Kazuki YOSHIDA
+;; Copyright (C) 2014-  Kazuki YOSHIDA
 
 ;; Author: Kazuki YOSHIDA
 ;; Keywords: OS X, Finder
-;; URL: https://github.com/kaz-yos/elisp
-;; Version: 0.3.1
+;; URL: https://github.com/kaz-yos/reveal-in-osx-finder
+;; Version: 0.3.3
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
