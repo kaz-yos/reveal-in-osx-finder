@@ -8,7 +8,7 @@ reveal-in-osx-finder
 
 - If ```M-x reveal-in-osx-finder``` is invoked in a file-associated buffer, it will open the folder enclosing the file in the OS X Finder. It will also highlight the file the buffer is associated with within the folder.
 
-- *(NEW in 0.3.0)* If ```M-x reveal-in-osx-finder``` is invoked in a dired buffer, it will open the current folder in the OS X Finder. It will also highlight the file at point if available.
+- If ```M-x reveal-in-osx-finder``` is invoked in a dired buffer, it will open the current folder in the OS X Finder. It will also highlight the file at point if available.
 
 - If ```M-x reveal-in-osx-finder``` is invoked in a buffer not associated with a file, it will open the folder defined in the default-directory variable.
 
@@ -25,14 +25,6 @@ To configure the MELPA, see this: http://melpa.milkbox.net/#/getting-started
 M-x list-packages
 ```
 
-If you prefer auto-install.el, you can do the following to install.
-```lisp
-(auto-install-from-url "https://raw.github.com/kaz-yos/elisp/master/reveal-in-osx-finder.el")
-```
-
-Otherwise you can download the file from the URL below and place it somewhere in your path.
-https://raw.github.com/kaz-yos/elisp/master/reveal-in-osx-finder.el
-
 Then, put the following in your emacs configuration file.
 
 ```lisp
@@ -42,7 +34,7 @@ Then, put the following in your emacs configuration file.
 (global-set-key (kbd "C-c z") 'reveal-in-osx-finder)
 ```
 
-**Special thanks:**
+**Acknowledgement:**
 
 This is a modified version of the ```open-finder``` found at the URL below. Thank you elemakil and lawlist for introducing this nice piece of code,
 
