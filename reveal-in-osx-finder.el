@@ -105,6 +105,19 @@ This function runs the actual AppleScript."
     (start-process "osascript-getinfo" nil "osascript" "-e" script) ; Run AppleScript.
     ))
 
+;;;###autoload
+(defun reveal-finder-in-dired ()
+  "Open dired with the past from the topmost Finder window."
+  (interactive)
+  (let ((script (concat
+                 "tell application \"Finder\"\n"
+                 " return POSIX path of (insertion location as alias)\n"
+                 "end tell\n")))
+    (with-temp-buffer
+      (if (= 0 (call-process "osascript" nil (current-buffer) nil "-e" script))
+          (dired-other-window (string-trim (buffer-string)))
+        (user-error "Failed to find Finder path. Maybe there are no Finder windows open?")))))
+
 
 (provide 'reveal-in-osx-finder)
 ;;; reveal-in-osx-finder.el ends here
